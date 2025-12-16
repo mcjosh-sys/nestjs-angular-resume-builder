@@ -1,0 +1,24 @@
+@if (skills().length) {
+  <hr class="border-2" [style]="{ borderColor: color() }" />
+  <div class="space-y-3 mt-6">
+    <p class="text-lg font-semibold" [style]="{ color: color() }">Skills</p>
+    <div class="flex break-inside-avoid flex-wrap gap-2">
+      @for (skill of skills(); track $index) {
+        <span
+          hlmBadge
+          class="bg-black text-white rounded-md"
+          [style]="{
+            backgroundColor: color(),
+            borderRadius:
+              borderStyle() === borderStyles.SQUARE
+                ? '0px'
+                : borderStyle() === borderStyles.CIRCLE
+                  ? '9999px'
+                  : '8px',
+          }"
+          >{{ skill }}</span
+        >
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,35 @@
+<div
+  class="group relative border rounded-lg border-transparent hover:border-border transition-colors bg-secondary p-3 h-full"
+>
+  <div class="space-y-3">
+    <a
+      href="{{ '/editor?resumeId=' + resume().id }}"
+      (click)="loadResume($event)"
+      class="inline-block w-full text-center"
+    >
+      <p class="font-semibold line-clamp-1">{{ resume().title || 'Untitled' }}</p>
+      @if (resume().description) {
+        <p class="line-clamp-2 text-sm">{{ resume().description }}</p>
+      }
+      <p class="text-xs text-muted-foreground">
+        {{ wasUpdated() ? 'Updated' : 'Created' }} on
+        {{ resume().updatedAt | date: 'MMM d, yyyy, h:mm a' }}
+      </p>
+    </a>
+    <a
+      href="{{ '/editor?resumeId=' + resume().id }}"
+      (click)="loadResume($event)"
+      class="relative inline-block w-full"
+    >
+      <app-resume-preview
+        [resumeData]="resume()"
+        class="shadow-sm transition-shadow group-hover:shadow-lg bg-white"
+      />
+
+      <div
+        class="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent"
+      ></div>
+    </a>
+  </div>
+  <app-resume-item-menu [resumeId]="resume().id" />
+</div>

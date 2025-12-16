@@ -1,0 +1,71 @@
+<div class="max-w-md w-full mx-auto space-y-6">
+  <div class="space-y-1.5 text-center">
+    <h2 class="text-2xl font-semibold">Personal Information</h2>
+    <p class="text-sm text-muted-foreground">Tell us about yourself</p>
+  </div>
+
+  <form [formGroup]="form" class="space-y-3">
+    <hlm-form-field>
+      <label hlmLabel for="photo">Your photo</label>
+      <div class="flex items-center gap-2">
+        <input
+          hlmInput
+          (change)="onFileChange($event)"
+          type="file"
+          id="photo"
+          accept="image/*"
+          #photoInput
+        />
+        <button hlmBtn variant="secondary" type="button" (click)="removeFile(photoInput)">
+          Remove
+        </button>
+      </div>
+      <input hlmInput formControlName="photo" type="hidden" />
+      <hlm-error>
+        @if (form.get('photo')?.errors?.['startsWith']) {
+          File must be an image <br />
+        }
+        @if (form.get('photo')?.errors?.['maxFileSize']) {
+          File must be less than 4MB
+        }
+      </hlm-error>
+    </hlm-form-field>
+    <div class="grid grid-cols-2 gap-3">
+      <hlm-form-field>
+        <label hlmLabel for="firstName">First name</label>
+        <input hlmInput formControlName="firstName" id="firstName" />
+      </hlm-form-field>
+      <hlm-form-field>
+        <label hlmLabel for="lastName">Last name</label>
+        <input hlmInput formControlName="lastName" id="lastName" />
+      </hlm-form-field>
+    </div>
+    <hlm-form-field>
+      <label hlmLabel for="jobTitle">Job title</label>
+      <input hlmInput formControlName="jobTitle" id="jobTitle" />
+    </hlm-form-field>
+    <div class="grid grid-cols-2 gap-3">
+      <hlm-form-field>
+        <label hlmLabel for="city">City</label>
+        <input hlmInput formControlName="city" id="city" autocomplete="address-level2" />
+      </hlm-form-field>
+      <hlm-form-field>
+        <label hlmLabel for="country">Country</label>
+        <input hlmInput formControlName="country" id="country" autocomplete="country" />
+      </hlm-form-field>
+    </div>
+    <hlm-form-field>
+      <label hlmLabel for="phone">Phone</label>
+      <input hlmInput formControlName="phone" type="tel" id="phone" autocomplete="tel" />
+    </hlm-form-field>
+    <hlm-form-field>
+      <label hlmLabel for="email">Email</label>
+      <input hlmInput formControlName="email" type="email" id="email" autocomplete="email" />
+      <hlm-error>
+        @if (form.get('email')?.errors?.['email']) {
+          Email must be valid
+        }
+      </hlm-error>
+    </hlm-form-field>
+  </form>
+</div>

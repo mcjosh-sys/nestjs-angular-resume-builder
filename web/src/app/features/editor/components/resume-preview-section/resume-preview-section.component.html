@@ -1,0 +1,16 @@
+<div
+  class="opacity-20 2xl:opacity-100 group-hover:opacity-100 transition-opacity absolute left-1 top-1 flex flex-col gap-3 flex-none lg:left-3 lg:top-3"
+>
+  <app-color-picker
+    [color]="color()"
+    (onChange)="setResumeData({ colorHex: $event })"
+    ngSkipHydration
+  />
+  <app-border-style-button
+    [borderStyle]="borderStyle()"
+    (onChange)="setResumeData({ borderStyle: $event })"
+  />
+</div>
+<div class="flex w-full justify-center overflow-y-auto bg-secondary p-3">
+  <app-resume-preview [resumeData]="resumeData()" className="max-w-2xl shadow-md" />
+</div>

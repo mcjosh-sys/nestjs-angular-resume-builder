@@ -1,0 +1,68 @@
+<button
+  hlmBtn
+  variant="ghost"
+  size="icon"
+  [brnMenuTriggerFor]="menu"
+  class="absolute right-0.5 top-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+>
+  <ng-icon hlm name="lucideEllipsisVertical" size="16"></ng-icon>
+</button>
+
+<ng-template #menu>
+  <hlm-menu>
+    <button
+      hlmMenuItem
+      [disabled]="pending().downloading || pending().deleting"
+      (click)="handleDownload()"
+      class="flex items-center gap-2"
+    >
+      @if (pending().downloading) {
+        <ng-icon hlm name="lucideLoaderCircle" size="16" class="animate-spin"></ng-icon>
+      } @else {
+        <ng-icon hlm name="lucideDownload" size="16"></ng-icon>
+      }
+      Download
+    </button>
+    <button
+      hlmMenuItem
+      [disabled]="pending().deleting || pending().downloading"
+      (click)="showConfirmDialog.set('open')"
+      class="flex items-center gap-2 text-rose-500"
+    >
+      @if (pending().deleting) {
+        <ng-icon hlm name="lucideLoaderCircle" size="16" class="animate-spin"></ng-icon>
+      } @else {
+        <ng-icon hlm name="lucideTrash2" size="16"></ng-icon>
+      }
+      Delete
+    </button>
+  </hlm-menu>
+</ng-template>
+
+<hlm-dialog [state]="showConfirmDialog()" disableClose>
+  <hlm-dialog-content *brnDialogContent="let ctx">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Delete Resume</h3>
+      <p hlmDialogDescription>
+        This will automatically delete this resume. This action cannot be undone.
+      </p>
+    </hlm-dialog-header>
+    <hlm-dialog-footer>
+      <app-loading-button
+        variant="destructive"
+        [loading]="pending().deleting"
+        (onClick)="handleDelete()"
+      >
+        Delete
+      </app-loading-button>
+      <button
+        hlmBtn
+        variant="secondary"
+        [disabled]="pending()"
+        (click)="showConfirmDialog.set('closed')"
+      >
+        Cancel
+      </button>
+    </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>

@@ -1,0 +1,27 @@
+<div
+  appDimensions
+  #dimensions="dimensions"
+  [class]="hlm('bg-[white] text-[black] h-fit w-full aspect-[210/297]', className())"
+  #resumeContentPreview
+>
+  <div
+    class="flex flex-col gap-6 p-6"
+    [style.zoom]="(1 / 794) * dimensions.width()"
+    [class.invisible]="!dimensions.width()"
+    id="resumeContentPreview"
+  >
+    <app-personal-info-header [resumeData]="resumeData()" />
+    @if (resumeData().summary) {
+      <app-summary-section [resumeData]="resumeData()" />
+    }
+    @if (resumeData().workExperiences?.length) {
+      <app-work-experience-section [resumeData]="resumeData()" />
+    }
+    @if (resumeData().educations?.length) {
+      <app-education-section [resumeData]="resumeData()" />
+    }
+    @if (resumeData().skills?.length) {
+      <app-skills-section [resumeData]="resumeData()" />
+    }
+  </div>
+</div>

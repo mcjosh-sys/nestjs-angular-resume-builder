@@ -1,0 +1,9 @@
+@if (summary()) {
+  <hr class="border-2" [style]="{ borderColor: color() }" />
+  <div class="space-y-3 mt-6 break-inside-avoid">
+    <p class="text-lg font-semibold" [style]="{ color: color() }">Professional profile</p>
+    <div class="whitespace-pre-line text-sm">
+      {{ summary() }}
+    </div>
+  </div>
+}

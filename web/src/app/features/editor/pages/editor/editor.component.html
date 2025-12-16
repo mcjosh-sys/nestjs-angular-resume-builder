@@ -1,0 +1,48 @@
+<header class="space-y-1.5 border-b px-3 py-5 text-center">
+  <h1 class="text-2xl font-bold">Design your resume</h1>
+  <p class="text-sm text-muted-foreground">
+    Follow the steps below to create your resume. Your progress will be saved automatically.
+  </p>
+</header>
+<main class="relative grow">
+  @if (isFetchingResume()) {
+    <app-loading class="absolute inset-0 z-[99]" />
+  }
+  <div class="absolute bottom-0 top-0 flex w-full">
+    <div
+      cdkScrollable
+      class="{{
+        hlm(
+          'w-full md:w-1/2 p-3 overflow-y-auto flex flex-col gap-3 md:flex',
+          smResumePreview() && 'hidden'
+        )
+      }}"
+    >
+      <app-editor-breadcrumbs />
+      @switch (currentStep().key) {
+        @case ('general-info') {
+          <app-general-info-form />
+        }
+        @case ('personal-info') {
+          <app-personal-info-form />
+        }
+        @case ('work-experience') {
+          <app-work-experiences-form />
+        }
+        @case ('education') {
+          <app-educations-form />
+        }
+        @case ('skills') {
+          <app-skills-form />
+        }
+        @case ('summary') {
+          <app-summary-form />
+        }
+        @default {}
+      }
+    </div>
+    <div class="grow md:border-r"></div>
+    <app-resume-preview-section [class]="hlm(smResumePreview() && 'flex')" />
+  </div>
+</main>
+<app-editor-footer [(smResumePreview)]="smResumePreview" />

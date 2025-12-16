@@ -1,0 +1,51 @@
+@if (form()) {
+  <div *cdkDragPlaceholder class="h-16"></div>
+  <div [formGroup]="form()!" class="space-y-3 border rounded-md bg-background p-3">
+    <div class="flex justify-between gap-2">
+      <span class="font-semibold">Education {{ index() !== undefined ? index()! + 1 : '' }}</span>
+      <span class="text-muted-foreground" cdkDragHandle>
+        <ng-icon hlm name="lucideGripHorizontal" size="sm" class="cursor-grab"></ng-icon>
+      </span>
+    </div>
+    <hlm-form-field>
+      <label hlmLabel for="degree">Degree</label>
+      <input hlmInput formControlName="degree" id="degree" autofocus />
+    </hlm-form-field>
+    <hlm-form-field>
+      <label hlmLabel for="school">School</label>
+      <input hlmInput formControlName="school" id="school" />
+    </hlm-form-field>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="flex flex-col gap-3">
+        <label for="startDate" hlmLabel class="px-1">Start date</label>
+        <hlm-date-picker
+          buttonId="startDate"
+          formControlName="startDate"
+          [formatDate]="formatDate"
+          class="w-full"
+        >
+          <span>Select date</span>
+        </hlm-date-picker>
+      </div>
+      <div class="flex flex-col gap-3">
+        <label for="endDate" hlmLabel class="px-1">End date</label>
+        <hlm-date-picker
+          buttonId="endDate"
+          formControlName="endDate"
+          [formatDate]="formatDate"
+          class="w-full"
+        >
+          <span>Select date</span>
+        </hlm-date-picker>
+      </div>
+    </div>
+    <button
+      hlmBtn
+      variant="destructive"
+      type="button"
+      (click)="index() !== undefined ? remove.emit(index()!) : undefined"
+    >
+      Remove
+    </button>
+  </div>
+}

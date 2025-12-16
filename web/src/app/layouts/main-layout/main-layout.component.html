@@ -1,0 +1,13 @@
+<hlm-toaster [richColors]="true" />
+<div class="min-h-screen flex flex-col">
+  <app-navbar />
+  <app-premium-modal />
+  <div class="relative h-full w-full grow flex flex-col">
+    @if (!isClerkLoaded()) {
+      <div class="flex items-center justify-center absolute inset-0 bg-background z-[99999]">
+        <ng-icon hlm name="lucideLoaderCircle" size="xl" class="animate-spin"></ng-icon>
+      </div>
+    }
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="max-w-md w-full mx-auto space-y-6">
+  <div class="space-y-1.5 text-center">
+    <h2 class="text-2xl font-semibold">Professional Summary</h2>
+    <p class="text-sm text-muted-foreground">
+      Write a short introduction for your resume or let AI generate one from your entered data.
+    </p>
+  </div>
+
+  <form [formGroup]="form" class="flex flex-col gap-3">
+    <hlm-form-field>
+      <label hlmLabel for="summary" class="sr-only">Professional summary</label>
+      <textarea
+        hlmInput
+        formControlName="summary"
+        id="summary"
+        style="height: 136px"
+        placeholder="A brief engaging text about yourself"
+      ></textarea>
+      <hlm-hint> </hlm-hint>
+      <app-generate-summary-button (onSummaryGenerated)="onSummaryGenerated()" />
+    </hlm-form-field>
+  </form>
+</div>

@@ -1,0 +1,20 @@
+<div class="max-w-md w-full mx-auto space-y-6">
+  <div class="space-y-1.5 text-center">
+    <h2 class="text-2xl font-semibold">Skills</h2>
+    <p class="text-sm text-muted-foreground">What are you good at?</p>
+  </div>
+
+  <form [formGroup]="form" class="flex flex-col gap-3">
+    <hlm-form-field>
+      <label hlmLabel for="skills" class="sr-only">Skills</label>
+      <textarea
+        hlmInput
+        formControlName="skills"
+        id="skills"
+        style="height: 60px"
+        placeholder="e.g. React.js, Node.js, graphic design, ..."
+      ></textarea>
+      <hlm-hint> Separate each skill with a comma. </hlm-hint>
+    </hlm-form-field>
+  </form>
+</div>

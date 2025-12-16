@@ -1,0 +1,23 @@
+<div class="max-w-md w-full mx-auto space-y-6">
+  <div class="space-y-1.5 text-center">
+    <h2 class="text-2xl font-semibold">General Information</h2>
+    <p class="text-sm text-muted-foreground">This will not appear on your resume</p>
+  </div>
+
+  <form [formGroup]="form" class="space-y-3">
+    <hlm-form-field>
+      <label hlmLabel for="title">Project name</label>
+      <input hlmInput formControlName="title" id="title" placeholder="My cool resume" autofocus />
+    </hlm-form-field>
+    <hlm-form-field>
+      <label hlmLabel for="description">Description</label>
+      <input
+        hlmInput
+        formControlName="description"
+        id="description"
+        placeholder="A resume for my next job"
+      />
+      <hlm-hint> Describe what this resume is for </hlm-hint>
+    </hlm-form-field>
+  </form>
+</div>

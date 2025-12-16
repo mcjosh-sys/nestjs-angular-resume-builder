@@ -1,0 +1,34 @@
+@if (nonEmptyWorkExperiences()?.length) {
+  <hr class="border-2" [style]="{ borderColor: color() }" />
+  <div class="space-y-3 mt-6">
+    <p class="text-lg font-semibold" [style]="{ color: color() }">Work experiences</p>
+    @for (exp of nonEmptyWorkExperiences(); track $index; let index = $index) {
+      <div class="break-inside-avoid space-y-1">
+        <div
+          class="flex items-center justify-between text-sm font-semibold"
+          [style]="{ color: color() }"
+        >
+          <span>{{ exp.position }}</span>
+          @if (exp.startDate) {
+            <span>
+              {{ exp.startDate | date: 'MM/yyyy' }} - {{ ' ' }}
+              @if (exp.endDate) {
+                {{ exp.endDate | date: 'MM/yyyy' }}
+              } @else {
+                {{ 'Present' }}
+              }
+            </span>
+          }
+        </div>
+        <p class="text-xs font-semibold">
+          {{ exp.company }}
+          {{ exp.city || exp.country ? ' | ' : '' }}
+          {{ exp.city }}
+          {{ exp.city && exp.country ? ', ' : '' }}
+          {{ exp.country }}
+        </p>
+        <div class="whitespace-pre-line text-xs">{{ exp.description }}</div>
+      </div>
+    }
+  </div>
+}

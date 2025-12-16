@@ -1,0 +1,67 @@
+<hlm-dialog [state]="state()" (stateChanged)="handleStateChanged($event)">
+  <hlm-dialog-content *brnDialogContent="let ctx" class="w-[calc(100vw-2rem)] sm:max-w-2xl">
+    <hlm-dialog-header>
+      <h3 hlmDialogTitle>Resume Builder AI Premium</h3>
+    </hlm-dialog-header>
+    <div class="space-y-6">
+      <p>Get a premium subscription to unlock more features.</p>
+      <div class="flex">
+        <div class="flex w-1/2 flex-col gap-5">
+          <h3 class="text-center text-lg font-bold">Premium</h3>
+          <ul class="list-inside space-y-2">
+            @for (feature of premiumFeatures; track feature) {
+              <li class="flex items-center gap-2">
+                <span class="text-green-500">
+                  <ng-icon hlm name="lucideCheck" size="16"></ng-icon>
+                </span>
+                {{ feature }}
+              </li>
+            }
+          </ul>
+          <button
+            hlmBtn
+            [disabled]="loading()"
+            (click)="handlePremiumClick(priceIds.pro)"
+            class="mt-auto flex gap-2 items-center justify-center"
+          >
+            @if (pending().pro) {
+              <ng-icon hlm name="lucideLoaderCircle" size="16" class="animate-spin"></ng-icon>
+            }
+            Get Premium
+          </button>
+        </div>
+        <div class="border-l mx-6"></div>
+        <div class="flex w-1/2 flex-col gap-5">
+          <h3
+            class="text-center text-lg font-bold bg-gradient-to-r from-green-600 to-green-400 bg-clip-text text-transparent"
+          >
+            Premium Plus
+          </h3>
+          <ul class="list-inside space-y-2">
+            @for (feature of premiumPlusFeatures; track feature) {
+              <li class="flex items-center gap-2">
+                <span class="text-green-500">
+                  <ng-icon hlm name="lucideCheck" size="16"></ng-icon>
+                </span>
+                {{ feature }}
+              </li>
+            }
+          </ul>
+          <button
+            hlmBtn
+            variant="premium"
+            [disabled]="loading()"
+            (click)="handlePremiumClick(priceIds.proPlus)"
+            class="mt-auto flex gap-2 items-center justify-center"
+          >
+            @if (pending().proPlus) {
+              <ng-icon hlm name="lucideLoaderCircle" size="16" class="animate-spin"></ng-icon>
+            }
+            Get Premium Plus
+          </button>
+        </div>
+      </div>
+    </div>
+    <hlm-dialog-footer> </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>

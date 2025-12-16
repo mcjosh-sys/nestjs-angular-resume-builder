@@ -1,0 +1,156 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlanName {
+  FREE
+  PRO
+  PRO_PLUS
+}
+
+// model User {
+//   id             String        @id 
+//   email          String        @unique
+//   passwordHash   String
+//   name           String?
+//   resumes        Resume[]
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@map("users")
+// }
+
+model Resume {
+  id     String @id @default(cuid())
+  userId String
+  // user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title       String?
+  description String?
+
+  photoUrl        String?
+  colorHex        String           @default("#000000")
+  borderStyle     String           @default("squircle")
+  summary         String?
+  firstName       String?
+  lastName        String?
+  jobTitle        String?
+  city            String?
+  country         String?
+  phone           String?
+  email           String?
+  workExperiences WorkExperience[]
+  educations      Education[]
+  skills          String[]
+  otherFields     OtherField[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("resumes")
+}
+
+model WorkExperience {
+  id String @id @default(cuid())
+
+  position    String?
+  company     String?
+  city        String?
+  country     String?
+  startDate   DateTime?
+  endDate     DateTime?
+  description String?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([resumeId])
+  @@map("work_experiences")
+}
+
+model Education {
+  id String @id @default(cuid())
+
+  degree    String?
+  school    String?
+  startDate DateTime?
+  endDate   DateTime?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([resumeId])
+  @@map("educations")
+}
+
+model OtherField {
+  id String @id @default(cuid())
+
+  title       String?
+  subtitle    String?
+  description String?
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([resumeId])
+  @@map("other_fields")
+}
+
+model Subscription {
+  id                      String   @id @default(cuid())
+  userId                  String   @unique
+  stripeCustomerId        String   @unique
+  stripeSubscriptionId    String   @unique
+  stripePriceId           String
+  stripeCurrentPeriodEnd  DateTime
+  stripeCancelAtPeriodEnd Boolean  @default(false)
+  // planId                  String
+  // plan                    Plan  @relation(fields: [planId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("user_subscriptions")
+}
+
+// model Plan {
+//   id                    String         @id @default(cuid())
+//   name                  PlanName       @unique
+//   features              String[]
+//   resumeLimit           Int
+//   isPro                 Boolean        @default(false)
+//   aiFeatures            Boolean        @default(false)
+//   customizationFeatures Boolean        @default(false)
+//   stripePriceId         String?        @unique
+//   subscriptions         Subscription[]
+
+//   @@map("pro_plans")
+// }

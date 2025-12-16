@@ -1,0 +1,26 @@
+<div class="max-w-md w-full mx-auto space-y-6">
+  <div class="space-y-1.5 text-center">
+    <h2 class="text-2xl font-semibold">Work experience</h2>
+    <p class="text-sm text-muted-foreground">Add as many work experience as you like</p>
+  </div>
+
+  <form
+    [formGroup]="form"
+    class="flex flex-col gap-3"
+    cdkDropList
+    (cdkDropListDropped)="handleDrop($event)"
+  >
+    @for (control of workExperienceFormArray.controls; track $index; let index = $index) {
+      <app-work-experience-form-item
+        [form]="control"
+        [index]="index"
+        (remove)="handleRemove($event)"
+        cdkDrag
+        cdkDragLockAxis="y"
+      />
+    }
+  </form>
+  <div class="flex justify-center">
+    <button hlmBtn (click)="appendWorkExperienceForm()">Add work experience</button>
+  </div>
+</div>

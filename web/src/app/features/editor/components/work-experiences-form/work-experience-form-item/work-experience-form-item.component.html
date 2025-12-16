@@ -1,0 +1,78 @@
+@if (form()) {
+  <div *cdkDragPlaceholder class="h-16"></div>
+  <div [formGroup]="form()!" class="space-y-3 border rounded-md bg-background p-3">
+    <div class="flex justify-between gap-2">
+      <span class="font-semibold"
+        >Work experience {{ index() !== undefined ? index()! + 1 : '' }}</span
+      >
+      <span class="text-muted-foreground" cdkDragHandle>
+        <ng-icon hlm name="lucideGripHorizontal" size="sm" class="cursor-grab"></ng-icon>
+      </span>
+    </div>
+    <div class="flex justify-center">
+      <app-generate-work-experience-button (onWorkExperienceGenerated)="patchForm($event)" />
+    </div>
+    <hlm-form-field>
+      <label hlmLabel for="position">Job title</label>
+      <input hlmInput formControlName="position" id="position" />
+    </hlm-form-field>
+    <hlm-form-field>
+      <label hlmLabel for="company">Company</label>
+      <input hlmInput formControlName="company" id="company" />
+    </hlm-form-field>
+    <div class="grid grid-cols-2 gap-3">
+      <hlm-form-field>
+        <label hlmLabel for="city">City</label>
+        <input hlmInput formControlName="city" id="city" autocomplete="address-level2" />
+      </hlm-form-field>
+      <hlm-form-field>
+        <label hlmLabel for="country">Country</label>
+        <input hlmInput formControlName="country" id="country" autocomplete="country" />
+      </hlm-form-field>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="flex flex-col gap-3">
+        <label for="startDate" hlmLabel class="px-1">Start date</label>
+        <hlm-date-picker
+          buttonId="startDate"
+          formControlName="startDate"
+          [formatDate]="formatDate"
+          class="w-full"
+        >
+          <span>Select date</span>
+        </hlm-date-picker>
+      </div>
+      <div class="flex flex-col gap-3">
+        <label for="endDate" hlmLabel class="px-1">End date</label>
+        <hlm-date-picker
+          buttonId="endDate"
+          formControlName="endDate"
+          [formatDate]="formatDate"
+          class="w-full"
+        >
+          <span>Present</span>
+        </hlm-date-picker>
+      </div>
+    </div>
+    <div class="text-muted-foreground text-xs">
+      Leave <span class="font-semibold">end date</span> empty if you are currently working here
+    </div>
+    <hlm-form-field>
+      <label hlmLabel for="description">Description</label>
+      <textarea
+        hlmInput
+        formControlName="description"
+        id="description"
+        style="height: 60px"
+      ></textarea>
+    </hlm-form-field>
+    <button
+      hlmBtn
+      type="button"
+      variant="destructive"
+      (click)="index() !== undefined ? remove.emit(index()!) : undefined"
+    >
+      Remove
+    </button>
+  </div>
+}

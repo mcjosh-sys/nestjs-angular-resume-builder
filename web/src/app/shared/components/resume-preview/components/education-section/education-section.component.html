@@ -1,0 +1,30 @@
+@if (nonEmptyEducations()?.length) {
+  <hr class="border-2" [style]="{ borderColor: color() }" />
+  <div class="space-y-3 mt-6">
+    <p class="text-lg font-semibold" [style]="{ color: color() }">Education</p>
+    @for (ed of nonEmptyEducations(); track $index; let index = $index) {
+      <div class="break-inside-avoid space-y-1">
+        <div
+          class="flex items-center justify-between text-sm font-semibold"
+          [style]="{ color: color() }"
+        >
+          <span>{{ ed.degree }}</span>
+          @if (ed.startDate) {
+            <span>
+              @if (ed.startDate) {
+                {{ ed.startDate | date: 'MM/yyyy' }}
+                {{ ed.endDate ? '-' : '' }}
+                {{ ed.endDate | date: 'MM/yyyy' }}
+              } @else {
+                {{ 'Present' }}
+              }
+            </span>
+          }
+        </div>
+        <p class="text-xs font-semibold">
+          {{ ed.school }}
+        </p>
+      </div>
+    }
+  </div>
+}
