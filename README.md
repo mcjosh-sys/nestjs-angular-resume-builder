@@ -175,16 +175,3 @@ Contributions are welcome. Open an issue to discuss big changes. For small fixes
 2. Create a branch for your change
 3. Run lint/tests locally
 4. Open a pull request with a clear description
-
-## License
-
-This project repository does not include an open-source license file. Add or update `LICENSE` if you intend to change distribution terms.
-
----
-
-If you'd like, I can also:
-
-- Add a root-level `package.json` or a small dev script to run both server and web concurrently (e.g., with `concurrently`).
-- Add a short Docker Compose for local development (Postgres + server + web).
-
-Tell me which you'd prefer and I'll add it.
